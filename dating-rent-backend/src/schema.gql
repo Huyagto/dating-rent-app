@@ -3,11 +3,59 @@
 # ------------------------------------------------------
 
 type User {
-  id: Int!
-  userName: String!
-  displayName: String
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String
+  age: Int
+  gender: String
+  bio: String
+  interests: [String!]
+  online: Boolean!
+  lastActiveAt: DateTime
+  isVerified: Boolean!
+  photos: [String!]
+  job: String
+  school: String
+  height: Int
+  distancePreference: Int
+  ageMinPreference: Int
+  ageMaxPreference: Int
+  genderPreference: String
+  unreadMessages: Int!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
-  getUser: User!
+  users: [User!]!
+  user(id: String!): User!
+  nearbyUsers(lng: Float!, lat: Float!, maxDistance: Float): [User!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  age: Int
+  gender: String
+  bio: String
+  interests: [String!]
+  photos: [String!]
+  job: String
+  school: String
+  height: Int
+  distancePreference: Int
+  ageMinPreference: Int
+  ageMaxPreference: Int
+  genderPreference: String
+  lng: Float
+  lat: Float
 }
